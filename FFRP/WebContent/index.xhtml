@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html" 
+      xmlns:p="http://primefaces.org/ui"  >
+	<f:view>
+      	<h:head>
+      		<meta charset="UTF-8" />
+      		<h:outputStylesheet library="css" name="loginStyle.css"  />
+		 	<meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0" />
+		<!-- 	<link rel="stylesheet" href="css/loginStyle.css" media="screen" type="text/css" /> -->
+      	</h:head>
+      	<h:body>
+      		<h:form>
+				<p:panel styleClass="loginPanel">
+      				<div class="login-class" >
+						<f:facet name="header"> 
+							<center> 
+								<h:outputText value="GREETINGS" /> 
+							</center>
+						</f:facet> 
+						
+						<h1>Log-in</h1>
+						<br></br>
+						
+						<h:inputText  name="user" placeholder="Username" value="#{Authenticator.username}">
+							<f:ajax></f:ajax>
+						</h:inputText>
+						<h:inputSecret name="pass" placeholder="Password" value="#{Authenticator.password}"  >
+							<f:ajax></f:ajax>
+						</h:inputSecret>
+						<h:commandButton value="Login" styleClass="login login-submit" action="#{Authenticator.login()}" />
+						
+						<div class="login-help">
+							<a href="#">Forgot Password</a>
+						</div>
+					</div>
+				</p:panel>	
+			</h:form>
+		</h:body>
+	</f:view>
+</html>

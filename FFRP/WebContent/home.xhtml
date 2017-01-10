@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j" >
+	<f:view>
+		<h:head>
+			<meta charset="UTF-8" />
+			<meta name="viewport"
+				content="width=device-width, height=device-height, initial-scale=1.0" />
+		</h:head>
+		<h:body>
+			<script>
+	
+			</script>
+			<h:form>
+				<rich:panel>
+					<f:facet name="header">
+						<h:panelGroup>
+							<h:outputText value="#{Authenticator.username} " />
+							<h:outputText value="Welcome TO HOME Page" />
+							<h:commandButton action="#{Authenticator.logout()}" value="LogOut"
+								style="float:right;" />
+						</h:panelGroup>
+					</f:facet>
+	
+					<h:panelGrid columns="3" style="float:center;" cellpadding="10"
+						cellspacing="10"
+						rendered="#{twitterAnalysisBean.sourceTypeConfiguredIdListMap != null}">
+	
+						<h:panelGroup>
+							<h:outputText value="Data Source* :" style="font-weight:bold;"></h:outputText>
+							<h:selectOneMenu
+								value="#{twitterAnalysisBean.selectedDataSourceType}">
+								<f:selectItem itemLabel="Please Select" itemValue="#{null}"></f:selectItem>
+								<c:forEach items="#{twitterAnalysisBean.fetchUserDSList()}"
+									var="dsType">
+									<f:selectItem itemLabel="#{dsType}" itemValue="#{dsType}"></f:selectItem>
+								</c:forEach>
+								<f:ajax event="change" render="LIST_OF_DSTYPE_ID"></f:ajax>
+							</h:selectOneMenu>
+						</h:panelGroup>
+	
+	
+						<h:panelGroup id="LIST_OF_DSTYPE_ID">
+							<h:outputText value="ID* :" style="font-weight:bold;"></h:outputText>
+							<h:selectOneMenu value="#{twitterAnalysisBean.searchScreenName}">
+								<f:selectItem itemLabel="Please Select" itemValue="#{null}"></f:selectItem>
+								<c:forEach
+									items="#{twitterAnalysisBean.fetchUserConfiguredIDList()}"
+									var="dsId">
+									<f:selectItem itemLabel="#{dsId}" itemValue="#{dsId}"></f:selectItem>
+								</c:forEach>
+								<a4j:ajax event="change" ></a4j:ajax>
+							</h:selectOneMenu>
+						</h:panelGroup>
+	
+						<a4j:commandButton id="FIND_ID_DATA_BUTTTON" value=" Find "
+							styleClass="login login-submit"
+							rendered="#{twitterAnalysisBean.searchScreenName != null }"
+							process="@this"
+							action="#{twitterAnalysisBean.processSelectedTypeAndIdSpecificData()}"
+							update="ALL_DATA_PGRID" immediate="true">
+						</a4j:commandButton>
+					</h:panelGrid>
+				</rich:panel>
+			</h:form>
+		</h:body>
+	</f:view>
+</html>
